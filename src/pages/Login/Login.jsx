@@ -18,6 +18,7 @@ const [eyeOn, setEyeOn] = useState(false);
 const [codeOn, setCodeOn] = useState({register: false, forgetPassword: false});
 const [numbersCode, setNumbersCode] = useState({number1: "", number2: "", number3: "", number4: "", number5: "", number6: ""})
 const [answerAxios, setAnswerAxios] = useState()
+const baseURL= "https://youwrite-back-production.up.railway.app/"
 let navigate = useNavigate();
 const input1 = useRef()
 const input2 = useRef()
@@ -60,7 +61,7 @@ async function CreateUser(event){
     if(verifyFields()){
         const codeUser = numbersCode.number1 + numbersCode.number2 + numbersCode.number3 + numbersCode.number4 +  numbersCode.number5 +  numbersCode.number6 
         if(toString(codeUser) === toString(answerAxios.data.code)){
-            const url= "http://localhost:3333/users/create"
+            const url= baseURL + "users/create"
             const data ={
                 name: dataUser.name,
                 email: dataUser.email,
@@ -82,7 +83,7 @@ async function SendCodeRegister(event){
     event.preventDefault()
     if(verifyFields()){
         if(dataUser.password === dataUser.confirmationPassword ){
-            const url= "http://localhost:3333/users/verify"
+            const url= baseURL + "users/verify"
             const data ={
                 email: dataUser.email
             }
@@ -100,7 +101,7 @@ async function SendCodeRegister(event){
 
 async function Login(event){
     event.preventDefault()
-    const url= "http://localhost:3333/users/login"
+    const url= baseURL + "users/login"
     const data ={
         email: dataUser.email,
         password: dataUser.password
@@ -115,12 +116,20 @@ async function Login(event){
 
 async function SendCodeForgetPassword(){
     if(dataUser.email.length > 5){
-            const url= "http://localhost:3333/users/recovery"
+            const url= baseURL + "users/recovery"
             const data ={
                 email: dataUser.email
             }
+
+            const config = {
+                headers:{
+                  Authentication: "donos_do_codigo",
+                }
+              }
+
+
             try {
-                const response = await axios.post(url, data);
+                const response = await axios.post(url, data, config);
                 setAnswerAxios(response)
               } catch (error) {
                 alert(error.response.data.message)
@@ -179,52 +188,51 @@ useEffect(() => {
         : <></> }    
         <div className="box">
             <div className="divbuttonsBox">
-                <button onClick={() => setTradeFocusButton(!tradeFocusButton)} className={tradeFocusButton ? "buttonFocusOn" : "buttonFocusOff"}>Login</button>
-                <button onClick={() => setTradeFocusButton(!tradeFocusButton)} className={tradeFocusButton ? "buttonFocusOff" : "buttonFocusOn"}>Cadastrar</button>
+                <button type='button' onClick={() => setTradeFocusButton(!tradeFocusButton)} className={tradeFocusButton ? "buttonFocusOn" : "buttonFocusOff"}>Login</button>
+                <button type='button' onClick={() => setTradeFocusButton(!tradeFocusButton)} className={tradeFocusButton ? "buttonFocusOff" : "buttonFocusOn"}>Cadastrar</button>
             </div>
         
         <form className="inputsText" onSubmit={tradeFocusButton ? Login : SendCodeRegister}>
         { tradeFocusButton ?
             <>
-            <img alt="Man opening one door" src={ImageSignIn} width={250} height={150}></img>
-            <div className='outInput'>
-                <input onChange={(text) => setDataUser({...dataUser, email: text.target.value})} value={dataUser.email} required type="email" className='input' placeholder='Digite seu email'></input>
-                <img alt="icon email" src={IconEmail}></img>
-            </div>
+                <img alt="Man opening one door" src={ImageSignIn} width={250} height={150}></img>
+                <div className='outInput'>
+                    <input onChange={(text) => setDataUser({...dataUser, email: text.target.value})} value={dataUser.email} required type="email" className='input' placeholder='Digite seu email'></input>
+                    <img alt="icon email" src={IconEmail}></img>
+                </div>
 
-            <div className='outInput'>
-                <input onChange={(text) => setDataUser({...dataUser, password: text.target.value})} value={dataUser.password} minLength={8} required type={eyeOn ?"text" : "password"}  className='input' placeholder='Digite sua senha'></input>
-                {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='EyeIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='EyeIcon'/>}
-            </div>
-            <p onClick={() => SendCodeForgetPassword()} className='textForgetPassword'>Esqueci minha senha</p>
-            <button className="buttonSignUp">Entrar</button>
+                <div className='outInput'>
+                    <input onChange={(text) => setDataUser({...dataUser, password: text.target.value})} value={dataUser.password} minLength={8} required type={eyeOn ?"text" : "password"}  className='input' placeholder='Digite sua senha'></input>
+                    {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='EyeIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='EyeIcon'/>}
+                </div>
+                <p onClick={() => SendCodeForgetPassword()} className='textForgetPassword'>Esqueci minha senha</p>
+                <button className="buttonSignUp">Entrar</button>
             </>
         : 
             <>
-            <div className='outInput'>
-                <input  onChange={(text) => setDataUser({...dataUser, name: text.target.value})} value={dataUser.name} minLength={4} required type="text" className='input' placeholder='Digite seu nome'></input>
-                <img alt="icon user" src={IconUser}></img>
-            </div>
+                <div className='outInput'>
+                    <input  onChange={(text) => setDataUser({...dataUser, name: text.target.value})}  minLength={4} required type="text" className='input' placeholder='Digite seu nome'></input>
+                    <img alt="icon user" src={IconUser}></img>
+                </div>
 
-            <div className='outInput'>
-                <input onChange={(text) => setDataUser({...dataUser, email: text.target.value})} value={dataUser.email} required type="email" className='input' placeholder='Digite seu email'></input>
-                <img alt="icon email" src={IconEmail}></img>
-            </div>
+                <div className='outInput'>
+                    <input onChange={(text) => setDataUser({...dataUser, email: text.target.value})}  required type="email" className='input' placeholder='Digite seu email'></input>
+                    <img alt="icon email" src={IconEmail}></img>
+                </div>
 
-            <div className='outInput'>
-                <input onChange={(text) => setDataUser({...dataUser, password: text.target.value})} value={dataUser.password} minLength={8} required type={eyeOn ?"text" : "password"}  className='input' placeholder='Digite sua senha'></input>
-                {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='EyeIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='EyeIcon'/>}
-            </div>
+                <div className='outInput'>
+                    <input onChange={(text) => setDataUser({...dataUser, password: text.target.value})}  minLength={8} required type={eyeOn ?"text" : "password"}  className='input' placeholder='Digite sua senha'></input>
+                    {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='EyeIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='EyeIcon'/>}
+                </div>
 
-            <div className='outInput'>
-                <input onChange={(text) => setDataUser({...dataUser, confirmationPassword: text.target.value})} value={dataUser.confirmationPassword} minLength={8} required type={eyeOn ?"text" : "password"} className='input' placeholder='Confirme sua senha'></input>
-                {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='EyeIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='EyeIcon'/>}
-            </div>
-            
-            
-            <button type="submit" className="buttonSignUp">Cadastrar</button>
-            </>
-            
+                <div className='outInput'>
+                    <input onChange={(text) => setDataUser({...dataUser, confirmationPassword: text.target.value})} minLength={8} required type={eyeOn ?"text" : "password"} className='input' placeholder='Confirme sua senha'></input>
+                    {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='EyeIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='EyeIcon'/>}
+                </div>
+                
+                
+                <button  className="buttonSignUp">Cadastrar</button>
+            </> 
         }
         </form>
         </div>

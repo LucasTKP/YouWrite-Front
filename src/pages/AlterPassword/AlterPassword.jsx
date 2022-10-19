@@ -14,7 +14,7 @@ const [answerAxios, setAnswerAxios] = useState()
 const location = useLocation()
 let navigate = useNavigate();
 async function TradePassword(event){
-        const url="http://localhost:3333/users/alterpassword"
+        const url="https://youwrite-back-production.up.railway.app/users/alterpassword"
         event.preventDefault()
         if(dataUser.password === dataUser.confirmationPassword){
             const data = {
