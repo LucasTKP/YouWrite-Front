@@ -1,9 +1,0 @@
-
-:root {
-  --PrimaryColor: rgba(144, 196, 243, 1);
-}
-body{
-    background-color: var(--PrimaryColor);
-    width: 100vw;
-    height: 100vh;
-}

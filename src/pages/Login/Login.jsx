@@ -198,15 +198,15 @@ useEffect(() => {
         <form className="inputsText" onSubmit={tradeFocusButton ? Login : SendCodeRegister}>
         { tradeFocusButton ?
             <>
-                <img alt="Man opening one door" src={ImageSignIn} width={280} height={180} style={{margin: 10}}></img>
+                <img alt="Man opening one door" className='imgLogin' src={ImageSignIn} width={280} height={180} style={{margin: 10}}></img>
                 <div className='outInputSignIn'>
                     <input onChange={(text) => setDataUser({...dataUser, email: text.target.value})} value={dataUser.email} required type="email" className='inputSignIn' placeholder='Digite seu email'></input>
-                    <img alt="icon email" src={IconEmail}></img>
+                    <img alt="icon email" className='dataUserIcon' src={IconEmail}></img>
                 </div>
 
                 <div className='outInputSignIn'>
                     <input onChange={(text) => setDataUser({...dataUser, password: text.target.value})} value={dataUser.password} minLength={8} required type={eyeOn ?"text" : "password"}  className='inputSignIn' placeholder='Digite sua senha'></input>
-                    {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='dataUserIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='dataUserIcon'/>}
+                    {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} width={8} className='dataUserIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='dataUserIcon'/>}
                 </div>
                 <p onClick={() => SendCodeForgetPassword()} className='textForgetPassword'>Esqueci minha senha</p>
                 <button className="buttonSignUp">Entrar</button>
@@ -215,7 +215,7 @@ useEffect(() => {
             <>
                 <div className='outInputSignUp'>
                     <input  onChange={(text) => setDataUser({...dataUser, name: text.target.value})}  minLength={4} required type="text" className='inputSignUp' placeholder='Digite seu nome'></input>
-                    <img alt="icon user" src={IconUser}></img>
+                    <img alt="icon user" src={IconUser} className='dataUserIcon'></img>
                 </div>
 
                 <div className='outInputSignUp'>
@@ -230,7 +230,7 @@ useEffect(() => {
 
                 <div className='outInputSignUp'>
                     <input onChange={(text) => setDataUser({...dataUser, email: text.target.value})}  required type="email" className='inputSignUp' placeholder='Digite seu email'></input>
-                    <img alt="icon email" src={IconEmail}></img>
+                    <img alt="icon email" className='dataUserIcon' src={IconEmail}></img>
                 </div>
 
                 <div className='outInputSignUp'>
