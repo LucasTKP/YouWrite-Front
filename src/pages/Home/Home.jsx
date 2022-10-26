@@ -3,6 +3,7 @@ import { AuthContext } from '../../App';
 import './Home.css'
 import { useNavigate } from "react-router-dom";
 import { StackRoutes } from "../../routes/Stack.Routes";
+import { Header } from '../components/Header/Header'
 
     export function Home() {
       const {setUser} = useContext(AuthContext)
@@ -13,6 +14,6 @@ import { StackRoutes } from "../../routes/Stack.Routes";
         return <StackRoutes/>
       } 
   return (
-    <button onClick={() =>  Home()}>Sair</button>
+    <Header />
   )
 }
