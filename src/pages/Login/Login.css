@@ -2,7 +2,7 @@
     --PrimaryColor: rgba(144, 196, 243, 1);
     --SecondColor: rgba(0, 120, 232, 1);
     --ThirdColor: rgba(188, 220, 248, 1);
-    --FourthColor: rgba(61, 104, 137, 1);
+    --FourthColor: rgb(61, 104, 137);
     margin:0;
     padding: 0;
 }

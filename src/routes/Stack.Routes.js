@@ -28,7 +28,7 @@ export function StackRoutes() {
     <BrowserRouter>
       <Fragment>
         <Routes>
-          <Route path="/" element={<Private Item={Home} />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Private Item={Login} />} />
           <Route path="/alterpassword" element={ <AlterPassword /> } />
           <Route path="*" element={<Login />} />
