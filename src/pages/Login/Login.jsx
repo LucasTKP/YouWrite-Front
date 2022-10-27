@@ -18,6 +18,7 @@ const [eyeOn, setEyeOn] = useState(false);
 const [codeOn, setCodeOn] = useState({register: false, forgetPassword: false});
 const [numbersCode, setNumbersCode] = useState({number1: "", number2: "", number3: "", number4: "", number5: "", number6: ""})
 const [answerAxios, setAnswerAxios] = useState()
+const baseURL = "https://youwrite-back-production.up.railway.app"
 let navigate = useNavigate();
 const input1 = useRef()
 const input2 = useRef()
@@ -42,7 +43,7 @@ useEffect(() => {
             alert("Usuario criado com sucesso")
             setCodeOn(false)
             setTradeFocusButton(true)
-            setDataUser({...dataUser, email: "", name: "", password: "", confirmationPassword: ""})
+            setDataUser({...dataUser, email: "", name: "", cpf: "", cep: "", password: "", confirmationPassword: ""})
             console.log(numbersCode)
         } else if(answerAxios.data.statusVerifyLogin === 200){
             const token = Math.random().toString(36).substring(2)
@@ -63,7 +64,7 @@ async function CreateUser(event){
     if(verifyFields()){
         const codeUser = numbersCode.number1 + numbersCode.number2 + numbersCode.number3 + numbersCode.number4 +  numbersCode.number5 +  numbersCode.number6 
         if(toString(codeUser) === toString(answerAxios.data.code)){
-            const url= "http://localhost:3333/users/create"
+            const url= baseURL + "/users/create"
             const data ={
                 name: dataUser.name,
                 cpf: dataUser.cpf,
@@ -87,7 +88,7 @@ async function SendCodeRegister(event){
     event.preventDefault()
     if(verifyFields()){
         if(dataUser.password === dataUser.confirmationPassword ){
-            const url= "http://localhost:3333/users/verify"
+            const url= baseURL + "/users/verify"
             const data ={
                 email: dataUser.email
             }
@@ -120,7 +121,7 @@ async function Login(event){
 
 async function SendCodeForgetPassword(){
     if(dataUser.email.length > 5){
-            const url= "http://localhost:3333/users/recovery"
+            const url= baseURL + "/users/recovery"
             const data ={
                 email: dataUser.email
             }
@@ -214,32 +215,32 @@ useEffect(() => {
         : 
             <>
                 <div className='outInputSignUp'>
-                    <input  onChange={(text) => setDataUser({...dataUser, name: text.target.value})}  minLength={4} required type="text" className='inputSignUp' placeholder='Digite seu nome'></input>
+                    <input  onChange={(text) => setDataUser({...dataUser, name: text.target.value})}  minLength={4} required value={dataUser.name} type="text" className='inputSignUp' placeholder='Digite seu nome'></input>
                     <img alt="icon user" src={IconUser} className='dataUserIcon'></img>
                 </div>
 
                 <div className='outInputSignUp'>
-                    <input onChange={(text) => setDataUser({...dataUser, cpf: text.target.value})}  maxLength={11} required type={'text'} className='inputSignUp' placeholder='Digite seu cpf'></input>
+                    <input onChange={(text) => setDataUser({...dataUser, cpf: text.target.value})}  maxLength={11} required value={dataUser.cpf} type={'text'} className='inputSignUp' placeholder='Digite seu cpf'></input>
                     <ExceptionOutlined className='dataUserIcon'/>
                 </div>
 
                 <div className='outInputSignUp'>
-                    <input onChange={(text) => setDataUser({...dataUser, cep: text.target.value})} maxLength={8} required type={'text'} className='inputSignUp' placeholder='Digite seu cep'></input>
+                    <input onChange={(text) => setDataUser({...dataUser, cep: text.target.value})} maxLength={8} required value={dataUser.cep} type={'text'} className='inputSignUp' placeholder='Digite seu cep'></input>
                     <ExceptionOutlined className='dataUserIcon'/>
                 </div>
 
                 <div className='outInputSignUp'>
-                    <input onChange={(text) => setDataUser({...dataUser, email: text.target.value})}  required type="email" className='inputSignUp' placeholder='Digite seu email'></input>
+                    <input onChange={(text) => setDataUser({...dataUser, email: text.target.value})}  required value={dataUser.email} type="email" className='inputSignUp' placeholder='Digite seu email'></input>
                     <img alt="icon email" className='dataUserIcon' src={IconEmail}></img>
                 </div>
 
                 <div className='outInputSignUp'>
-                    <input onChange={(text) => setDataUser({...dataUser, password: text.target.value})}  minLength={8} required type={eyeOn ?"text" : "password"}  className='inputSignUp' placeholder='Digite sua senha'></input>
+                    <input onChange={(text) => setDataUser({...dataUser, password: text.target.value})}  minLength={8} required value={dataUser.password} type={eyeOn ?"text" : "password"}  className='inputSignUp' placeholder='Digite sua senha'></input>
                     {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='dataUserIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='dataUserIcon'/>}
                 </div>
 
                 <div className='outInputSignUp'>
-                    <input onChange={(text) => setDataUser({...dataUser, confirmationPassword: text.target.value})} minLength={8} required type={eyeOn ?"text" : "password"} className='inputSignUp' placeholder='Confirme sua senha'></input>
+                    <input onChange={(text) => setDataUser({...dataUser, confirmationPassword: text.target.value})} minLength={8} required value={dataUser.confirmationPassword} type={eyeOn ?"text" : "password"} className='inputSignUp' placeholder='Confirme sua senha'></input>
                     {eyeOn ? <EyeOutlined onClick={() => setEyeOn(false)} className='dataUserIcon'/> : <EyeInvisibleOutlined onClick={() => setEyeOn(true)} className='dataUserIcon'/>}
                 </div>
                 

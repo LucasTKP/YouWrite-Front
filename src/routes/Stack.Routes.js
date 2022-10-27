@@ -20,7 +20,6 @@ export function StackRoutes() {
         return login > 0 ? <Login /> : <Home /> 
       }
     }
-    console.log(signed)
     return signed ? <Item /> : <Login />
   }
 
@@ -28,10 +27,10 @@ export function StackRoutes() {
     <BrowserRouter>
       <Fragment>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Private Item={Home} />} />
           <Route path="/login" element={<Private Item={Login} />} />
           <Route path="/alterpassword" element={ <AlterPassword /> } />
-          <Route path="*" element={<Login />} />
+          <Route path="*" element={<Private Item={Login} />} />
         </Routes>
       </Fragment>
     </BrowserRouter>
