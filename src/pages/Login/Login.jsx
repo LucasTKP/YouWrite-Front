@@ -8,12 +8,12 @@ import axios from 'axios';
 import { useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../../App'
-
+import { IMaskInput } from "react-imask";
 
 export function Login() {
 const {setUser} = useContext(AuthContext)
 const [tradeFocusButton, setTradeFocusButton] = useState(true);
-const [dataUser, setDataUser] = useState({name: "", cpf:0, cep:0, email: "", password: "", confirmationPassword: ""});
+const [dataUser, setDataUser] = useState({name: "", cpf:"", cep:"", email: "", password: "", confirmationPassword: ""});
 const [eyeOn, setEyeOn] = useState(false);
 const [codeOn, setCodeOn] = useState({register: false, forgetPassword: false});
 const [numbersCode, setNumbersCode] = useState({number1: "", number2: "", number3: "", number4: "", number5: "", number6: ""})
@@ -220,12 +220,12 @@ useEffect(() => {
                 </div>
 
                 <div className='outInputSignUp'>
-                    <input onChange={(text) => setDataUser({...dataUser, cpf: text.target.value})}  maxLength={11} required value={dataUser.cpf} type={'text'} className='inputSignUp' placeholder='Digite seu cpf'></input>
+                    <IMaskInput mask="000.000.000-00" onChange={(text) => setDataUser({...dataUser, cpf: text.target.value})}  maxLength={14} required value={dataUser.cpf} type={'text'} className='inputSignUp' placeholder='Digite seu cpf'></IMaskInput>
                     <ExceptionOutlined className='dataUserIcon'/>
                 </div>
 
                 <div className='outInputSignUp'>
-                    <input onChange={(text) => setDataUser({...dataUser, cep: text.target.value})} maxLength={8} required value={dataUser.cep} type={'text'} className='inputSignUp' placeholder='Digite seu cep'></input>
+                    <IMaskInput mask="00000-000" onChange={(text) => setDataUser({...dataUser, cep: text.target.value})} maxLength={9} required value={dataUser.cep} type={'text'} className='inputSignUp' placeholder='Digite seu cep'></IMaskInput>
                     <ExceptionOutlined className='dataUserIcon'/>
                 </div>
 
