@@ -63,7 +63,7 @@ async function CreateUser(event){
     event.preventDefault()
     if(verifyFields()){
         const codeUser = numbersCode.number1 + numbersCode.number2 + numbersCode.number3 + numbersCode.number4 +  numbersCode.number5 +  numbersCode.number6 
-        if(toString(codeUser) === toString(answerAxios.data.code)){
+        if(codeUser === answerAxios.data.code){
             const url= baseURL + "/users/create"
             const data ={
                 name: dataUser.name,
