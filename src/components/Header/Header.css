@@ -109,6 +109,7 @@
         background-color: #fff;
         border-radius: 5px;
         transition: .3s;
+        margin-bottom: 10px;
     }
 
     .humburguerOn::after{

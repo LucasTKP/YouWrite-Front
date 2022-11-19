@@ -20,10 +20,10 @@ export function Header() {
   return (
     <div className='header'>
       <div className='outContent'>
-        <p className='logo' onClick={() => Logout()}>KurtSon</p>
+        <p translate="no" className='logo' onClick={() => Logout()}>KurtSon</p>
         <div className={humburguer ? 'divButtons' :  'divButtonsCell'}>
-          <a><button className='buttonHeader' ><IconUser  className='iconButtonHeader'/> <p className='textButtonHeader'>Profile</p></button></a>
-          <a><button className='buttonHeader'><IconNew  className='iconButtonHeader'/> <p className='textButtonHeader'>Profile</p></button></a>
+          <a href='a'><button className='buttonHeader' ><IconUser  className='iconButtonHeader'/> <p className='textButtonHeader'>Profile</p></button></a>
+          <a href='a'> <button className='buttonHeader'><IconNew  className='iconButtonHeader'/> <p className='textButtonHeader'>Itens</p></button></a>
         </div>
         <div className={humburguer ? 'humburguerOn': 'humburguerOff'} onClick={() => setHumburguer(!humburguer)}></div>
       </div>
