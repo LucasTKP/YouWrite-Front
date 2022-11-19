@@ -106,7 +106,7 @@ async function SendCodeRegister(event){
 
 async function Login(event){
     event.preventDefault()
-    const url= "http://localhost:3333/users/login"
+    const url= baseURL + "/users/login"
     const data ={
         email: dataUser.email,
         password: dataUser.password
