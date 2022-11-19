@@ -63,7 +63,7 @@ async function CreateUser(event){
     event.preventDefault()
     if(verifyFields()){
         const codeUser = numbersCode.number1 + numbersCode.number2 + numbersCode.number3 + numbersCode.number4 +  numbersCode.number5 +  numbersCode.number6 
-        if(codeUser === answerAxios.data.code){
+        if(codeUser == answerAxios.data.code){
             const url= baseURL + "/users/create"
             const data ={
                 name: dataUser.name,
@@ -147,7 +147,7 @@ async function SendCodeForgetPassword(){
 async function VerifyCodeForgetPassword(event){
     event.preventDefault()
     const codeUser = numbersCode.number1 + numbersCode.number2 + numbersCode.number3 + numbersCode.number4 +  numbersCode.number5 +  numbersCode.number6 
-        if(codeUser === answerAxios.data.code){
+    if(answerAxios.data.result == codeUser){
         navigate('/alterpassword', {state:{email: dataUser.email}})
     } else{
         alert("The code of confirmation is incorrec")
